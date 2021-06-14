@@ -4,6 +4,7 @@ import com.nikitakonshin.mytestshomework.model.SearchResponse
 import com.nikitakonshin.mytestshomework.model.SearchResult
 import com.nikitakonshin.mytestshomework.presenter.search.SearchPresenter
 import com.nikitakonshin.mytestshomework.repository.GitHubRepository
+import com.nikitakonshin.mytestshomework.view.details.ViewDetailsContract
 import com.nikitakonshin.mytestshomework.view.search.ViewSearchContract
 import org.junit.Assert.*
 import org.junit.Before
@@ -17,9 +18,11 @@ import retrofit2.Response
 class SearchPresenterTest {
 
     private lateinit var presenter: SearchPresenter
+    private var _viewContract: ViewSearchContract? = null
 
     @Mock
     private lateinit var repository: GitHubRepository
+
 
     @Mock
     private lateinit var viewContract: ViewSearchContract
@@ -30,7 +33,10 @@ class SearchPresenterTest {
         //Раньше было @RunWith(MockitoJUnitRunner.class) в аннотации к самому классу (SearchPresenterTest)
         MockitoAnnotations.initMocks(this)
         //Создаем Презентер, используя моки Репозитория и Вью, проинициализированные строкой выше
-        presenter = SearchPresenter(viewContract, repository)
+        presenter = SearchPresenter(repository)
+        presenter.onAttach(viewContract)
+        _viewContract = presenter._viewContract
+
     }
 
     @Test //Проверим вызов метода searchGitHub() у нашего Репозитория
@@ -148,5 +154,18 @@ class SearchPresenterTest {
 
         //Убеждаемся, что ответ от сервера обрабатывается корректно
         verify(viewContract, times(1)).displaySearchResults(searchResults, 101)
+    }
+
+    @Test
+    fun onAttach_Test() {
+        presenter.onAttach(viewContract)
+        assertNotNull(presenter._viewContract)
+        assertEquals(viewContract,_viewContract)
+    }
+
+    @Test
+    fun onDetach_Test() {
+        presenter.onDetach()
+        assertNull(presenter._viewContract)
     }
 }
