@@ -6,18 +6,17 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-
-import com.nikitakonshin.mytestshomework.presenter.search.PresenterSearchContract
-import com.nikitakonshin.mytestshomework.presenter.search.SearchPresenter
 import com.nikitakonshin.mytestshomework.R
 import com.nikitakonshin.mytestshomework.model.SearchResult
+import com.nikitakonshin.mytestshomework.presenter.search.PresenterSearchContract
+import com.nikitakonshin.mytestshomework.presenter.search.SearchPresenter
 import com.nikitakonshin.mytestshomework.repository.GitHubApi
 import com.nikitakonshin.mytestshomework.repository.GitHubRepository
 import com.nikitakonshin.mytestshomework.view.details.DetailsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class MainActivity : AppCompatActivity(), ViewSearchContract {
 
@@ -81,6 +80,16 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         searchResults: List<SearchResult>,
         totalCount: Int
     ) {
+        with(totalCountTextView) {
+            visibility = android.view.View.VISIBLE
+            text =
+                String.format(
+                    java.util.Locale.getDefault(),
+                    getString(R.string.results_count),
+                    totalCount
+                )
+        }
+
         this.totalCount = totalCount
         adapter.updateResults(searchResults)
     }
