@@ -34,11 +34,11 @@
         android:layout_margin="@dimen/margin"
         app:layout_constraintTop_toBottomOf="@id/searchEditText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/searchAndToDetailsActivityButton"
+        app:layout_constraintEnd_toStartOf="@id/searchButton"
         android:text="@string/to_details" />
 
     <Button
-        android:id="@+id/searchAndToDetailsActivityButton"
+        android:id="@+id/searchButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"

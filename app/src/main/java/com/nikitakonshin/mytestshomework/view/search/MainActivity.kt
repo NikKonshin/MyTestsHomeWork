@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         toDetailsActivityButton.setOnClickListener {
             startActivity(DetailsActivity.getIntent(this, totalCount))
         }
-        searchAndToDetailsActivityButton.setOnClickListener {
+        searchButton.setOnClickListener {
             val query = searchEditText.text.toString()
             if (query.isNotBlank()) {
                 presenter.searchGitHub(query)
