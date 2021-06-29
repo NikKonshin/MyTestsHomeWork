@@ -31,16 +31,16 @@ class MainActivityEspressoTest {
         onView(withId(R.id.searchEditText)).perform(click())
         onView(withId(R.id.searchEditText)).perform(replaceText("algol"), closeSoftKeyboard())
         onView(withId(R.id.searchEditText)).perform(pressImeActionButton())
-        onView(isRoot()).perform(delay())
+        onView(isRoot()).perform(delay(10000))
         onView(withId(R.id.totalCountTextView)).check(ViewAssertions.matches(withText("Number of results: 2423")))
     }
 
-    private fun delay(): ViewAction {
+    private fun delay(millisDelay: Long): ViewAction {
         return object : ViewAction {
             override fun getConstraints(): Matcher<View> = isRoot()
-            override fun getDescription(): String = "wait for $2 seconds"
+            override fun getDescription(): String = "wait for $millisDelay seconds"
             override fun perform(uiController: UiController?, view: View?) {
-                uiController?.loopMainThreadForAtLeast(10000)
+                uiController?.loopMainThreadForAtLeast(millisDelay)
             }
         }
     }

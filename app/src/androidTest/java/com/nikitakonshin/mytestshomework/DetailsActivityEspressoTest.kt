@@ -49,7 +49,7 @@ class DetailsActivityEspressoTest {
 
     @Test
     fun activityTextView_HasText() {
-        val assertion = matches(withText("Number of results: 0"))
+        val assertion = matches(withText(MainActivityConst.NUMBER_OF_RESULT_ZERO_STRING))
         onView(withId(R.id.totalCountTextView)).check(assertion)
     }
 
@@ -72,13 +72,13 @@ class DetailsActivityEspressoTest {
     @Test
     fun activityButtonIncrement_IsWorking() {
         onView(withId(R.id.incrementButton)).perform(click())
-        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: 1")))
+        onView(withId(R.id.totalCountTextView)).check(matches(withText(MainActivityConst.NUMBER_OF_RESULT_ONE_STRING)))
     }
 
     @Test
     fun activityButtonDecrement_IsWorking() {
         onView(withId(R.id.decrementButton)).perform(click())
-        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: -1")))
+        onView(withId(R.id.totalCountTextView)).check(matches(withText(MainActivityConst.TEST_NUMBER_OF_RESULTS_MINUS_1)))
     }
 
     @After
