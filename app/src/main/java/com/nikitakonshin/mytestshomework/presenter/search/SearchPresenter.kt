@@ -2,7 +2,7 @@ package com.nikitakonshin.mytestshomework.presenter.search
 
 import com.nikitakonshin.mytestshomework.model.SearchResponse
 import com.nikitakonshin.mytestshomework.repository.GitHubRepository
-import com.nikitakonshin.mytestshomework.repository.GitHubRepository.GitHubRepositoryCallback
+import com.nikitakonshin.mytestshomework.repository.RepositoryCallback
 import com.nikitakonshin.mytestshomework.view.ViewContract
 import com.nikitakonshin.mytestshomework.view.search.ViewSearchContract
 import retrofit2.Response
@@ -17,7 +17,7 @@ import retrofit2.Response
 
 internal class SearchPresenter internal constructor(
     private val repository: GitHubRepository
-) : PresenterSearchContract, GitHubRepositoryCallback {
+) : PresenterSearchContract, RepositoryCallback {
     internal var _viewContract: ViewSearchContract? = null
 
     override fun searchGitHub(searchQuery: String) {
