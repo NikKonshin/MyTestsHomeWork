@@ -61,6 +61,9 @@ android {
         test {
             java.srcDirs += "src/sharedTestData/java"
         }
+        testFake {
+            java.srcDirs += "src/sharedTestData/java"
+        }
     }
 }
 
@@ -74,6 +77,8 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+
 
     testImplementation "org.mockito:mockito-core:3.10.0"
     testImplementation 'org.mockito:mockito-inline:3.10.0'
@@ -94,5 +99,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
-    androidTestImplementation 'androidx.test:rules:1.4.0-beta02'
+    androidTestImplementation 'androidx.test:rules:1.4.0-alpha05'
+    
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 }
