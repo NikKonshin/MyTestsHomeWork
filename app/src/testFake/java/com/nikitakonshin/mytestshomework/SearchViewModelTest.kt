@@ -52,7 +52,7 @@ class SearchViewModelTest {
 
     @Test
     fun liveData_TestReturnValueIsNotNull() {
-        val observer = Observer<ScreenState>{}
+        val observer = Observer<ScreenState> {}
         val liveData = searchViewModel.subscribeToLiveData()
         Mockito.`when`(repository.searchGithub(SEARCH_QUERY)).thenReturn(
             Observable.just(
@@ -84,7 +84,42 @@ class SearchViewModelTest {
             searchViewModel.searchGitHub(SEARCH_QUERY)
             val value: ScreenState.Error = liveData.value as ScreenState.Error
             Assert.assertEquals(value.error.message, error.message)
-        }finally {
+        } finally {
+            liveData.removeObserver(observer)
+        }
+    }
+
+    @Test
+    fun liveData_TestReturnValueIsEqualsTotalCount() {
+        val observer = Observer<ScreenState> {}
+        val liveData = searchViewModel.subscribeToLiveData()
+        Mockito.`when`(repository.searchGithub(SEARCH_QUERY)).thenReturn(
+            Observable.just(
+                SearchResponse(1, listOf())
+            )
+        )
+        try {
+            liveData.observeForever(observer)
+            searchViewModel.searchGitHub(SEARCH_QUERY)
+            val response = liveData.value as ScreenState.Working
+            Assert.assertEquals(1, response.searchResponse.totalCount)
+        } finally {
+            liveData.removeObserver(observer)
+        }
+    }
+
+    @Test
+    fun liveData_TestReturnValueSearchResultNull() {
+        val observer = Observer<ScreenState> {}
+        val liveData = searchViewModel.subscribeToLiveData()
+        Mockito.`when`(repository.searchGithub(SEARCH_QUERY))
+            .thenReturn(Observable.just(SearchResponse(null, null)))
+        try {
+            liveData.observeForever(observer)
+            searchViewModel.searchGitHub(SEARCH_QUERY)
+            val response = liveData.value as ScreenState.Error
+            Assert.assertEquals(response.error.message, ERROR_IS_NULL)
+        } finally {
             liveData.removeObserver(observer)
         }
     }
@@ -92,5 +127,6 @@ class SearchViewModelTest {
     companion object {
         private const val SEARCH_QUERY = "some query"
         private const val ERROR_TEXT = "error"
+        private const val ERROR_IS_NULL = "Search results or total count are null"
     }
 }

@@ -3,16 +3,15 @@ package com.nikitakonshin.mytestshomework.repository
 import com.nikitakonshin.mytestshomework.model.SearchResponse
 import com.nikitakonshin.mytestshomework.presenter.RepositoryContract
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-internal class GitHubRepository(private val gitHubApi: GitHubApi): RepositoryContract {
+internal class GitHubRepository(private val gitHubApi: GitHubApi) : RepositoryContract {
 
-   override fun searchGithub(
+    override fun searchGithub(
         query: String,
         callback: RepositoryCallback
     ) {
@@ -40,4 +39,7 @@ internal class GitHubRepository(private val gitHubApi: GitHubApi): RepositoryCon
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    override suspend fun searchGithubAsync(query: String): SearchResponse =
+        gitHubApi.searchGithubAsync(query).await()
 }

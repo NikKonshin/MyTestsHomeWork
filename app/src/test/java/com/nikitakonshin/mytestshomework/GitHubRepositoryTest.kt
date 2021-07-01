@@ -3,7 +3,6 @@ package com.nikitakonshin.mytestshomework
 import com.nikitakonshin.mytestshomework.model.SearchResponse
 import com.nikitakonshin.mytestshomework.repository.GitHubApi
 import com.nikitakonshin.mytestshomework.repository.GitHubRepository
-import com.nikitakonshin.mytestshomework.repository.GitHubRepository.GitHubRepositoryCallback
 import com.nikitakonshin.mytestshomework.repository.RepositoryCallback
 import okhttp3.Request
 import okio.Timeout

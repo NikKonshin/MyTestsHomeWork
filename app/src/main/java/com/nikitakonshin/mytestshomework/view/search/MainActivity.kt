@@ -11,6 +11,7 @@ import com.nikitakonshin.mytestshomework.R
 import com.nikitakonshin.mytestshomework.model.ScreenState
 import com.nikitakonshin.mytestshomework.model.SearchResult
 import com.nikitakonshin.mytestshomework.presenter.search.SearchViewModel
+import com.nikitakonshin.mytestshomework.presenter.search.SearchViewModelCour
 import com.nikitakonshin.mytestshomework.repository.GitHubApi
 import com.nikitakonshin.mytestshomework.repository.GitHubRepository
 import com.nikitakonshin.mytestshomework.view.details.DetailsActivity
@@ -22,7 +23,7 @@ import java.util.*
 class MainActivity : AppCompatActivity(), ViewSearchContract {
 
     private val adapter = SearchResultAdapter()
-    private lateinit var viewModel: SearchViewModel
+    private lateinit var viewModel: SearchViewModelCour
 
     private var totalCount: Int = 0
 
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUI()
-        viewModel = SearchViewModel()
+        viewModel = SearchViewModelCour()
         viewModel.subscribeToLiveData().observe(this){onStateChange(it)}
 
     }

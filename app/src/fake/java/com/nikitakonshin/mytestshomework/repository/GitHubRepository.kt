@@ -21,10 +21,8 @@ internal class GitHubRepository(private val gitHubApi: GitHubApi): RepositoryCon
         return Observable.just(generateSearchResponse())
     }
 
-    interface GitHubRepositoryCallback {
-        fun handleGitHubResponse(response: Response<SearchResponse?>?)
-        fun handleGitHubError()
-    }
+    override suspend fun searchGithubAsync(query: String): SearchResponse =
+         generateSearchResponse()
 
     private fun generateSearchResponse(): SearchResponse {
         val list: MutableList<SearchResult> = mutableListOf()
